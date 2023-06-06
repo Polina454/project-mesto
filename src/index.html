@@ -15,6 +15,7 @@
     <main class="content">
       <section class="profile">
         <img class="profile__avatar" src="<%=require('./images/image.png')%>" alt="аватар" />
+        <div class="profile__icon"></div>
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <p class="profile__subtitle">Исследователь океана</p>
@@ -67,6 +68,20 @@
               <span class="form__input-error link-input-error"></span>
           </fieldset>
           <button type="submit" class="popup__button popup__button_save_add popup__button_inactive" value="Создать" disabled>Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_new">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_new" type="button" aria-label="кнопка закрыть"></button>
+        <form class="popup__form popup__form_new" name="form" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <fieldset class="popup__fieldset">
+            <input id="new-input" class="popup__input popup__input_new" type="url" name="description-new" value=""
+              placeholder="Ссылка на картинку" required />
+              <span class="form__input-error new-input-error"></span>
+          </fieldset>
+          <button type="submit" class="popup__button popup__button_save_add popup__button_inactive" value="Сохранить" disabled>Сохранить</button>
         </form>
       </div>
     </div>

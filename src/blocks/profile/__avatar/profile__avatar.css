@@ -5,7 +5,13 @@
     border-radius: 50%;
     margin-right: 30px;
     box-sizing: border-box;
+    cursor: pointer;
 }
+
+.profile__icon:hover.profile__avatar {
+  opacity: 1;
+}
+
 
 @media screen and (max-width: 767px) {
     .profile__avatar {

@@ -1,0 +1,12 @@
+.profile__icon{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  background-image: url(../../../images/pencel.svg);
+  background-size: cover;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+

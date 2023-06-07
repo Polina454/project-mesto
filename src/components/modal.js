@@ -1,3 +1,4 @@
+import { popupPicOpen, popupPicImg, popupPicText } from "./index.js";
 
 export function openPopup(popup) {
   if (popup) {
@@ -15,4 +16,11 @@ export function closeByEscape(event) {
   if (openedPopup && event.key === 'Escape') {
     closePopup(openedPopup);
   }
+}
+// открытие картинок
+export function openPopupPic(name, link) {
+  openPopup(popupPicOpen);
+  popupPicText.textContent = name;
+  popupPicImg.src = link;
+  popupPicImg.alt = name;
 }

@@ -11,12 +11,13 @@ export function createCard(cardInfo) {
    linkValue.alt = name;
    linkValue.src = link;
 
+//удаление карточек
   const deleteCard = cardElement.querySelector('.element__delete-item');
   deleteCard.addEventListener('click', function () {
     const cardElement = deleteCard.closest('.element__cards');
     deleteCardHandler(cardElement);
   });
-
+//лайки
   cardElement.querySelector('.element__like')
 
 .addEventListener('click', function (event) {

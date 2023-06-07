@@ -69,16 +69,20 @@ popupForm.addEventListener('submit', (event) => {
   closePopup(popupEdit);
 });
 
-popupFormAdd.addEventListener('submit', (event) => {
- event.preventDefault();
+ function cardsContent(event) {
+  const cardObj = { name: inputPlace.value, link: inputLink.value };
+  renderPopup(cardObj, cardsContainer);
+    event.preventDefault();
 
-linkValue.value = '';
-inputPlace.value = '';
+    inputPlace.value = "";
+    inputLink.value = "";
 
-  closePopup(popupAdd);
+    closePopup(popupAdd);
+  }
+
+initialCards.forEach((card) => {
+  renderPopup(card, cardsContainer);
 });
 
-initialCards.forEach(card => {
-  renderPopup(card, cardsContainer);
- });
+popupButtonSubmitAdd.addEventListener("click", cardsContent);
 

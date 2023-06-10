@@ -1,4 +1,4 @@
-.popup__button_inactive{
+ .popup__button_inactive{
   background-color: #fff;
   color: #C4C4C4;
   max-width: 358px;
@@ -17,3 +17,10 @@
   margin-bottom: 37px;
   border: 1px solid #C4C4C4;
 }
+@media screen and (max-width: 767px) {
+  .popup__button_inactive {
+    width: 90%;
+    margin-left: 14px
+  }
+}
+

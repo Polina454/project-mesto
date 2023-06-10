@@ -6,19 +6,22 @@ export function openPopup(popup) {
     document.addEventListener('keydown', closeByEscape);
   }
 }
+
 export function closePopup(popup) {
-  if (popup) {
-    popup.classList.remove('popup_opened');
-  }
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
+
 export function closeByEscape(event) {
-  const openedPopup = document.querySelector('.popup_opened');
-  if (openedPopup && event.key === 'Escape') {
-    closePopup(openedPopup);
+  if (event.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    openedPopup && closePopup(openedPopup);
   }
+
 }
 // открытие картинок
-export function openPopupPic(name, link) {
+export function openPopupPic(cardInfo) {
+  const { name, link } = cardInfo;
   openPopup(popupPicOpen);
   popupPicText.textContent = name;
   popupPicImg.src = link;

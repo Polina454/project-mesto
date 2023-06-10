@@ -14,11 +14,11 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/image.png')%>" alt="аватар" />
+        <img class="profile__avatar profile__avatar_new" src="<%=require('./images/image.png')%>" alt="аватар" />
         <div class="profile__icon"></div>
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <p class="profile__subtitle">Исследователь океана</p>
+          <p class="profile__subtitle">Исследователь котов</p>
           <button class="profile__edit-button" type="button"></button>
         </div>
         <button class="profile__add-button" type="button"></button>
@@ -38,18 +38,12 @@
               value="" placeholder="Имя пользователя" required minlength="2" maxlength="40" pattern="^[a-zA-Z]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" />
             <span class="form__input-error title-input-error"></span>
-            <input id="subtitle-input"
-            class="popup__input popup__input_subtitle"
-            type="text"
-            name="description-input"
-            value=""
-              placeholder="О себе"
-              required
-              minlength="2"
-              maxlength="200" />
+            <input id="subtitle-input" class="popup__input popup__input_subtitle" type="text" name="description-input"
+              value="" placeholder="О себе" required minlength="2" maxlength="200" />
             <span class="form__input-error subtitle-input-error"></span>
           </fieldset>
-          <button type="submit" class="popup__button popup__button_inactive" value="Сохранить" disabled>Сохранить</button>
+          <button type="submit" class="popup__button popup__button_inactive" value="Сохранить"
+            disabled>Сохранить</button>
         </form>
       </div>
     </div>
@@ -59,15 +53,16 @@
         <form class="popup__form popup__form_add" name="form" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <fieldset class="popup__fieldset">
-            <input id="place-input" class="popup__input popup__input_plece" name="description-place" type="text" value=""
-              placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Z]+$"
-              data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"/>
-              <span class="form__input-error place-input-error"></span>
+            <input id="place-input" class="popup__input popup__input_place" name="description-place" type="text"
+              value="" placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Z]+$"
+              data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" />
+            <span class="form__input-error place-input-error"></span>
             <input id="link-input" class="popup__input popup__input_link" type="url" name="description-link" value=""
               placeholder="Ссылка на картинку" required />
-              <span class="form__input-error link-input-error"></span>
+            <span class="form__input-error link-input-error"></span>
           </fieldset>
-          <button type="submit" class="popup__button popup__button_save_add popup__button_inactive" value="Создать" disabled>Создать</button>
+          <button type="submit" class="popup__button popup__button_save_add popup__button_inactive" value="Создать"
+            disabled>Создать</button>
         </form>
       </div>
     </div>
@@ -79,9 +74,10 @@
           <fieldset class="popup__fieldset">
             <input id="new-input" class="popup__input popup__input_new" type="url" name="description-new" value=""
               placeholder="Ссылка на картинку" required />
-              <span class="form__input-error new-input-error"></span>
+            <span class="form__input-error new-input-error"></span>
           </fieldset>
-          <button type="submit" class="popup__button popup__button_save_add popup__button_inactive" value="Сохранить" disabled>Сохранить</button>
+          <button type="submit" class="popup__button popup__button_save_new popup__button_inactive" value="Сохранить"
+            disabled>Сохранить</button>
         </form>
       </div>
     </div>

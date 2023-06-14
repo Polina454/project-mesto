@@ -1,25 +1,11 @@
 import '../pages/index.css';
 import { createCard } from './card';
 import { enableValidation } from './validate.js';
-import { initialCards, validationConfig } from './constants.js';
+import { validationConfig } from './constants.js';
 import { openPopup, closePopup, closeByEscape, openPopupPic } from "./modal.js";
 import { renderCard } from './card';
-import { serverUserData, getCardsData, updateUser, newCard } from './api.js';
-serverUserData().then((data) => {
-  console.log(data);
-});
-
-getCardsData().then((data) => {
-  console.log(data);
-});
-
-updateUser().then((res) => {
-  console.log(res);
-});
-
-newCard().then((data) => {
-  console.log(data);
-});
+import { getCards, getUser, editProfile, editAvatar, addCards, deleteCards, addLikes, removeLikes } from "./api";
+import { setLoading, handleSubmit } from './utils';
 
 const query = (selector) => document.querySelector(selector);
 const popupAdd = query('.popup_add');
@@ -41,7 +27,7 @@ const changePhotoForm = query('.popup__form_new');
 const profileTitleInput = query('.popup__input_title');
 const profileSubtitleInput = query('.popup__input_subtitle');
 const popups = document.querySelectorAll('.popup');
-let profileAvatar = query('.profile__avatar');
+const profileAvatar = query('.profile__avatar');
 export const cardsContainer = query('.elements');
 export const popupPicOpen = query('.popup_pic');
 export const popupPicText = query('.popup__text');
@@ -81,33 +67,45 @@ popups.forEach((popup) => {
 });
 
 //сменить информацию о профиле
-popupDescription.addEventListener('submit', (event) => {
+function changeProfile(event) {
   event.preventDefault();
 
-  profileTitle.textContent = profileTitleInput.value;
-  profileSubtitle.textContent = profileSubtitleInput.value;
-
-  closePopup(popupEdit);
-});
-
+  function callFunction() {
+    return editProfile({ name: profileTitleInput.value, about: profileSubtitleInput.value })
+      .then((data) => {
+        profileTitle.textContent = data.name;
+        profileSubtitle.textContent = data.about;
+        closePopup(popupEdit);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  handleSubmit(callFunction, event)
+}
+popupDescription.addEventListener("submit", changeProfile);
 
 //смена фото
 function changePhoto(event) {
-  const linkObj = { link: inputNew.value };
-  renderPhoto(linkObj);
   event.preventDefault();
+
+  function callFunction() {
+    return editAvatar({ avatar: inputNew.value })
+      .then((editData) => {
+        profileAvatar.src = editData.avatar;
+        closePopup(popupNew);
+        popupButtonSaveNew.classList.add("popup__button_inactive");
+        popupButtonSaveNew.setAttribute("disabled", true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    inputNew.value = "";
+  }
+  handleSubmit(callFunction, event)
 }
 
-changePhotoForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  changePhoto(event);
-
-  inputNew.value = "";
-
-  closePopup(popupNew);
-  popupButtonSaveNew.classList.add("popup__button_inactive");
-  popupButtonSaveNew.setAttribute("disabled", true);
-});
+changePhotoForm.addEventListener('submit', changePhoto);
 
 function renderPhoto(link) {
   const newAvatar = document.createElement('img');
@@ -119,27 +117,82 @@ function renderPhoto(link) {
   profileAvatar = newAvatar;
 }
 
-
 //добавить карточку
 function creatingСards(event) {
-  const cardObj = { name: inputPlace.value, link: inputLink.value };
-  renderCard(cardObj, cardsContainer);
   event.preventDefault();
 
-  inputPlace.value = "";
-  inputLink.value = "";
+  function callFunction() {
 
-  closePopup(popupAdd);
-  popupButtonSubmitAdd.classList.add("popup__button_inactive");
-  popupButtonSubmitAdd.setAttribute("disabled", true);
+    const cardInfo = { name: inputPlace.value, link: inputLink.value };
+    return addCards(cardInfo)
+
+      .then((result) => {
+        console.log(result);
+        renderCard(cardInfo, cardsContainer);
+        closePopup(popupAdd);
+        popupButtonSubmitAdd.classList.add("popup__button_inactive");
+        popupButtonSubmitAdd.setAttribute("disabled", true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    inputPlace.value = "";
+    inputLink.value = "";
+  }
+  handleSubmit(callFunction, event);
 }
-
-initialCards.forEach((card) => {
-  renderCard(card, cardsContainer);
-});
 
 popupFormAdd.addEventListener("submit", creatingСards);
 
 enableValidation(validationConfig);
 
+//Загрузка информации о пользователе с сервера и карточек
+Promise.all([getUser(), getCards()])
+  .then(([user, initialCards]) => {
+    profileTitle.textContent = user.name;
+    profileSubtitle.textContent = user.about;
+    profileAvatar.src = user.avatar;
+
+    initialCards.forEach((arrayElem) => {
+      const card = createCard(arrayElem, user._id, user._id, arrayElem.likes, arrayElem._id);
+      cardsContainer.append(card);
+    })
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))
+
+
+//Функция для удаление карточки
+export function removeCard(cardId, element) {
+  deleteCards(cardId)
+    .then(() => {
+      element.closest(".element__cards").remove();
+    })
+    .catch((error) => console.log(`Ошибка: ${error}`))
+};
+
+
+//Функция для лайки
+export function toggleButtonLike(cardId, element) {
+
+  const parentCard = element.closest(".element__cards");
+  const cardlikeNumber = parentCard.querySelector(".element__numder");
+
+
+  if (element.classList.contains("element__like_active")) {
+    removeLikes(cardId)
+      .then((result) => {
+        element.classList.remove("element__like_active")
+        cardlikeNumber.textContent = result.likes.length;
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+  } else {
+    addLikes(cardId)
+      .then((result) => {
+        element.classList.add("element__like_active");
+        cardlikeNumber.textContent = result.likes.length;
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+  }
+
+};
 

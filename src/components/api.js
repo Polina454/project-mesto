@@ -1,82 +1,86 @@
+// import { data } from "autoprefixer";
 
-//1. Загрузка информации о пользователе с сервера
-export const serverUserData = () => {
-  return fetch('https://mesto.nomoreparties.co/v1/plus-cohort-25/users/me', {
-    headers: {
-      authorization: 'b12664a1-013d-4344-813d-a0e4066b7aa4',
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((res) => {
+const urlConfig = {
+  url: "https://nomoreparties.co/v1/plus-cohort-25",
+  headers: {
+    authorization: "b12664a1-013d-4344-813d-a0e4066b7aa4",
+    "Content-Type": "application/json",
+  }
+}
+
+function onResponse(res) {
+  if (res.ok) {
     return res.json();
-  })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((err) => {
-    console.log('Ошибка. Запрос не выполнен: ', err);
-  });
+  } else {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
 }
 
-//2. загрузка карточек с сервера
-export const getCardsData = () => {
-  return fetch('https://mesto.nomoreparties.co/v1/plus-cohort-25/cards', {
-    headers: {
-      authorization: 'b12664a1-013d-4344-813d-a0e4066b7aa4'
-    }
-  })
-  .then((res) => {
-    return res.json();
-  })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((err) => {
-    console.log('Ошибка. Запрос не выполнен: ', err);
-  });
-}
-//3. редактирование профиля
-export const updateUser = () => {
-  return fetch('https://mesto.nomoreparties.co/v1/plus-cohort-25/users/me', {
-    method: 'PATCH',
-    headers: {
-      authorization: 'b12664a1-013d-4344-813d-a0e4066b7aa4',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: 'Polina Bliznyuk',
-      about: 'Web developer'
-    })
-  });
+//Запрос о пользователе
+export function getUser() {
+  return fetch(`${urlConfig.url}/users/me`, {
+    headers: urlConfig.headers
+  }).then(onResponse)
 }
 
-//4. добавление карточки
-export const newCard = () => {
-  return fetch('https://mesto.nomoreparties.co/v1/plus-cohort-25/cards', {
-    method: 'POST',
-    headers: {
-      authorization: 'b12664a1-013d-4344-813d-a0e4066b7aa4',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    })
+//Запрос для изменение профиля
+export function editProfile(editData) {
+  return fetch(`${urlConfig.url}/users/me`, {
+    method: "PATCH",
+    headers: urlConfig.headers,
+    body: JSON.stringify(editData),
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      throw new Error(`Ошибка: ${res.status} ${res.statusText}`)
-    }
+    .then(onResponse);
+};
+
+//Запрос о карточках
+export function getCards() {
+  return fetch(`${urlConfig.url}/cards`, {
+    headers: urlConfig.headers
   })
-  .then(data => {
-    console.log(data);
+    .then(onResponse)
+};
+
+//Запрос на создания карточек
+export function addCards(inputData) {
+  return fetch(`${urlConfig.url}/cards`, {
+    method: "POST",
+    headers: urlConfig.headers,
+    body: JSON.stringify(inputData),
   })
-  .catch(err => {
-    console.error(err)
-  });
-}
+    .then(onResponse)
+};
 
-
-
+//Запрос для изменение аватара
+export function editAvatar(editData) {
+  return fetch(`${urlConfig.url}/users/me/avatar`, {
+    method: "PATCH",
+    headers: urlConfig.headers,
+    body: JSON.stringify(editData),
+  })
+    .then(onResponse)
+};
+//удаление карточки
+export function deleteCards(cardId) {
+  return fetch(`${urlConfig.url}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: urlConfig.headers,
+  })
+    .then(onResponse)
+};
+//лайк
+export function addLikes(cardId) {
+  return fetch(`${urlConfig.url}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: urlConfig.headers,
+  })
+    .then(onResponse)
+};
+//удаление лайка
+export function removeLikes(cardId) {
+  return fetch(`${urlConfig.url}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: urlConfig.headers,
+  })
+    .then(onResponse)
+};

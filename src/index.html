@@ -35,7 +35,7 @@
           <h2 class="popup__title">Редактировать профиль</h2>
           <fieldset class="popup__fieldset">
             <input id="title-input" class="popup__input popup__input_title" name="description-input" type="text"
-              value="" placeholder="Имя пользователя" required minlength="2" maxlength="40" pattern="^[a-zA-Z]+$"
+              value="" placeholder="Имя пользователя" required minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" />
             <span class="form__input-error title-input-error"></span>
             <input id="subtitle-input" class="popup__input popup__input_subtitle" type="text" name="description-input"
@@ -54,7 +54,7 @@
           <h2 class="popup__title">Новое место</h2>
           <fieldset class="popup__fieldset">
             <input id="place-input" class="popup__input popup__input_place" name="description-place" type="text"
-              value="" placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Z]+$"
+              value="" placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" />
             <span class="form__input-error place-input-error"></span>
             <input id="link-input" class="popup__input popup__input_link" type="url" name="description-link" value=""
@@ -89,7 +89,10 @@
         <button class="element__delete-item" type="button"></button>
         <div class="element__conteiner">
           <h2 class="element__text"></h2>
+          <div class="card__like-group">
           <button class="element__like" type="button"></button>
+          <span class="element__numder">0</span>
+          </div>
         </div>
       </div>
     </div>

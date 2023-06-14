@@ -4,6 +4,7 @@
 @import url(../blocks/body/body.css);
 
 @import url(../blocks/element/element.css);
+@import url(../blocks/element/__numder/element__numder.css);
 @import url(../blocks/element/__cards/element__cards.css);
 @import url(../blocks/element/__delete-item/element__delete-item.css);
 @import url(../blocks/elements/elements.css);

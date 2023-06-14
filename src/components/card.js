@@ -1,8 +1,10 @@
 import { openPopupPic } from "./modal";
-import { cardTemplate } from "./index.js";
-import { cardsContainer } from "./index.js";
+import { removeCard, cardTemplate } from "./index.js";
+import { cardsContainer, toggleButtonLike } from "./index.js";
+import { deleteCards } from "./api";
+
 //добавление карточек
-export function createCard(cardInfo) {
+export function createCard(cardInfo, userId, user, likes, cardId) {
   const { name, link } = cardInfo;
   const cardElement = cardTemplate.querySelector('.element__cards').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__item');
@@ -12,29 +14,42 @@ export function createCard(cardInfo) {
   cardImage.src = link;
 
   //удаление карточек
-  const deleteCard = cardElement.querySelector('.element__delete-item');
-  deleteCard.addEventListener('click', function () {
-    const cardElement = deleteCard.closest('.element__cards');
-    deleteCardHandler(cardElement);
-  });
+  const cardDeleteButton = cardElement.querySelector('.element__delete-item');
+  function handleDeleteButtonClick(cardInfo, cardElement) {
+    removeCard(cardInfo._id, cardElement);
+  }
+  if (userId !== user) {
+    cardDeleteButton.remove();
+  } else {
+    cardDeleteButton.addEventListener("click", () => removeCard(cardId, cardDeleteButton));
+  }
+
   //лайки
-  cardElement.querySelector('.element__like')
-
-    .addEventListener('click', function (event) {
-      event.target.classList.toggle('element__like_active');
-    });
-
+  const likeNumber = cardElement.querySelector(".element__numder");
+  likeNumber.textContent = Array.isArray(likes) && likes.length > 0 ? likes.length : "0";
+  const likeCards = cardElement.querySelector(".element__like");
+  if (Array.isArray(likes) && likes.find((item) => item._id === user)) {
+    likeCards.classList.add("element__like_active");
+  }
   cardImage.addEventListener('click', function () {
     openPopupPic(cardInfo);
   });
+  cardDeleteButton.addEventListener('click', () => {
+    handleDeleteButtonClick(cardInfo, cardElement);
+  });
+
+  likeCards.addEventListener("click", () => toggleButtonLike(cardId, likeCards));
+  cardImage.addEventListener("click", () => openPopupPic(cardInfo));
 
   return cardElement;
-}
-function deleteCardHandler(card) {
-  card.remove();
-}
+};
+
 //отображение карточки на странице
-export function renderCard(cardInfo) {
-  cardsContainer.prepend(createCard(cardInfo));
+export function renderCard(cardInfo, userId, user, likes, cardId) {
+  cardsContainer.prepend(createCard(cardInfo, userId, user, likes, cardId));
 }
+
+
+
+
 

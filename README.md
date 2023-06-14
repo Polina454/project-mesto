@@ -8,5 +8,6 @@
 3. флекс
 4. адаптивная вертска
 
-### ссылка на проект: https://polina454.github.io/project-mesto/
+### ссылка на проект: https://Polina454.github.io/project-mesto
+
 

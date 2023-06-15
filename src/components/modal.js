@@ -22,8 +22,8 @@ export function closeByEscape(event) {
 // открытие картинок
 export function openPopupPic(cardInfo) {
   const { name, link } = cardInfo;
-  openPopup(popupPicOpen);
   popupPicText.textContent = name;
   popupPicImg.src = link;
   popupPicImg.alt = name;
+  openPopup(popupPicOpen);
 }

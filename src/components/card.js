@@ -1,10 +1,9 @@
 import { openPopupPic } from "./modal";
 import { removeCard, cardTemplate } from "./index.js";
 import { cardsContainer, toggleButtonLike } from "./index.js";
-import { deleteCards } from "./api";
 
 //добавление карточек
-export function createCard(cardInfo, userId, user, likes, cardId) {
+export function createCard(cardInfo, userId,  user, likes, cardId) {
   const { name, link } = cardInfo;
   const cardElement = cardTemplate.querySelector('.element__cards').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__item');
@@ -15,17 +14,18 @@ export function createCard(cardInfo, userId, user, likes, cardId) {
 
   //удаление карточек
   const cardDeleteButton = cardElement.querySelector('.element__delete-item');
+
   function handleDeleteButtonClick(cardInfo, cardElement) {
     removeCard(cardInfo._id, cardElement);
   }
-  if (userId !== user) {
+  if (userId !== cardInfo.owner._id) {
     cardDeleteButton.remove();
   } else {
     cardDeleteButton.addEventListener("click", () => removeCard(cardId, cardDeleteButton));
   }
 
   //лайки
-  const likeNumber = cardElement.querySelector(".element__numder");
+  const likeNumber = cardElement.querySelector(".element__number");
   likeNumber.textContent = Array.isArray(likes) && likes.length > 0 ? likes.length : "0";
   const likeCards = cardElement.querySelector(".element__like");
   if (Array.isArray(likes) && likes.find((item) => item._id === user)) {

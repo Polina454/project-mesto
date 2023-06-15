@@ -1,4 +1,3 @@
-// import { data } from "autoprefixer";
 
 const urlConfig = {
   url: "https://nomoreparties.co/v1/plus-cohort-25",

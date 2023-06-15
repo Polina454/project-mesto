@@ -171,7 +171,6 @@ export function toggleButtonLike(cardId, element) {
   const parentCard = element.closest(".element__cards");
   const cardLikeNumber = parentCard.querySelector(".element__number");
 
-
   if (element.classList.contains("element__like_active")) {
     removeLikes(cardId)
       .then((result) => {

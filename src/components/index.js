@@ -4,8 +4,19 @@ import { enableValidation } from './validate.js';
 import { validationConfig } from './constants.js';
 import { openPopup, closePopup, closeByEscape, openPopupPic } from "./modal.js";
 import { renderCard } from './card';
-import { getCards, getUser, editProfile, editAvatar, addCards, deleteCards, addLikes, removeLikes } from "./api";
 import { setLoading, handleSubmit } from './utils';
+
+const urlConfig = {
+  url: "https://nomoreparties.co/v1/plus-cohort-25",
+  headers: {
+    authorization: "b12664a1-013d-4344-813d-a0e4066b7aa4",
+    "Content-Type": "application/json",
+  }
+}
+
+import { Api } from "./api";
+const api = new Api (urlConfig);
+console.log(api);
 
 const query = (selector) => document.querySelector(selector);
 const popupAdd = query('.popup_add');
@@ -70,7 +81,7 @@ popups.forEach((popup) => {
 function changeProfile(event) {
 
   function callFunction() {
-    return editProfile({ name: profileTitleInput.value, about: profileSubtitleInput.value })
+    return api.editProfile({ name: profileTitleInput.value, about: profileSubtitleInput.value })
       .then((data) => {
         profileTitle.textContent = data.name;
         profileSubtitle.textContent = data.about;
@@ -89,7 +100,7 @@ function changePhoto(event) {
   event.preventDefault();
 
   function callFunction() {
-    return editAvatar({ avatar: inputNew.value })
+    return api.editAvatar({ avatar: inputNew.value })
       .then((editData) => {
         profileAvatar.src = editData.avatar;
         closePopup(popupNew);
@@ -118,7 +129,7 @@ function creatingCards(event) {
       name: inputPlace.value,
       link: inputLink.value,
     }
-    return addCards(cardInfo)
+    return api.addCards(cardInfo)
 
       .then((result) => {
         console.log(result);
@@ -140,7 +151,7 @@ popupFormAdd.addEventListener("submit", creatingCards);
 enableValidation(validationConfig);
 
 //Загрузка информации о пользователе с сервера и карточек
-Promise.all([getUser(), getCards()])
+Promise.all([api.getUser(), api.getCards()])
   .then(([user, initialCards]) => {
     profileTitle.textContent = user.name;
     profileSubtitle.textContent = user.about;
@@ -156,7 +167,7 @@ Promise.all([getUser(), getCards()])
 
 //Функция для удаление карточки
 export function removeCard(cardId, element) {
-  deleteCards(cardId)
+  api.deleteCards(cardId)
     .then(() => {
       element.closest(".element__cards").remove();
     })
@@ -172,14 +183,14 @@ export function toggleButtonLike(cardId, element) {
   const cardLikeNumber = parentCard.querySelector(".element__number");
 
   if (element.classList.contains("element__like_active")) {
-    removeLikes(cardId)
+    api.removeLikes(cardId)
       .then((result) => {
         element.classList.remove("element__like_active")
         cardLikeNumber.textContent = result.likes.length;
       })
       .catch((error) => console.log(`Ошибка: ${error}`))
   } else {
-    addLikes(cardId)
+    api.addLikes(cardId)
       .then((result) => {
         element.classList.add("element__like_active");
         cardLikeNumber.textContent = result.likes.length;

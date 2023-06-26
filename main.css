@@ -3,7 +3,7 @@
 .page{font-family:Inter,Arial,sans-serif;margin:auto;max-width:1280px;padding-bottom:60px;padding-top:45px}@media screen and (max-width:767px){.page{max-width:320px;padding-bottom:36px;padding-top:28px}}
 .body{background-color:#000}
 .element{border-radius:10px;max-height:361px;max-width:282px}
-.element__numder{color:#000;font-size:13px;font-style:normal;font-weight:400;line-height:16px;position:absolute;right:28px;text-align:center;top:329px}
+.element__number{color:#000;font-size:13px;font-style:normal;font-weight:400;line-height:16px;position:absolute;right:28px;text-align:center;top:329px}
 .element__cards{position:relative}
 .element__delete-item{background-color:transparent;background-image:url(161265c632b9f887063c.svg);background-repeat:no-repeat;border:none;cursor:pointer;height:19px;position:absolute;right:20px;top:20px;width:19px;z-index:1}.element__delete-item:hover{opacity:.5}
 .elements{-moz-column-gap:17px;column-gap:17px;display:grid;grid-template-columns:repeat(3,1fr);margin-bottom:67px;row-gap:20px}@media screen and (max-width:767px){.elements{grid-template-columns:1fr;margin-bottom:48px}}

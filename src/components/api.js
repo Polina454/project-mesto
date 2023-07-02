@@ -1,85 +1,100 @@
+export class Api {
+  constructor(options) {
+    this._baseUrl = options.baseUrl;
+    this._headers = options.headers;
+  };
 
-const urlConfig = {
-  url: "https://nomoreparties.co/v1/plus-cohort-25",
-  headers: {
-    authorization: "b12664a1-013d-4344-813d-a0e4066b7aa4",
-    "Content-Type": "application/json",
-  }
-}
-//
-function onResponse(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
+  _onResponse(res) {
+    if (res.ok) {
+      return res.json()
+    }
     return Promise.reject(`Ошибка: ${res.status}`);
-  }
-}
+  };
 
-//Запрос о пользователе
-export function getUser() {
-  return fetch(`${urlConfig.url}/users/me`, {
-    headers: urlConfig.headers
-  }).then(onResponse)
-}
+  //Запрос о пользователе
+  getUser() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers
+    })
+      .then(this._onResponse)
+  };
 
-//Запрос для изменение профиля
-export function editProfile(editData) {
-  return fetch(`${urlConfig.url}/users/me`, {
-    method: "PATCH",
-    headers: urlConfig.headers,
-    body: JSON.stringify(editData),
-  })
-    .then(onResponse);
-};
+  //Запрос для изменение профиля
+  editProfile(data) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about
+      })
+    })
+      .then(this._onResponse)
+  };
 
-//Запрос о карточках
-export function getCards() {
-  return fetch(`${urlConfig.url}/cards`, {
-    headers: urlConfig.headers
-  })
-    .then(onResponse)
-};
+  //Запрос о карточках
+  getCards() {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers
+    })
+      .then(this._onResponse)
+  };
 
-//Запрос на создания карточек
-export function addCards(inputData) {
-  return fetch(`${urlConfig.url}/cards`, {
-    method: "POST",
-    headers: urlConfig.headers,
-    body: JSON.stringify(inputData),
-  })
-    .then(onResponse)
-};
+  //Запрос на создания карточек
+  addCards(data) {
+    return fetch(`${this._baseUrl}/cards`, { // пост карточки через форму
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link
+      })
+    })
+      .then(this._onResponse)
+  };
 
-//Запрос для изменение аватара
-export function editAvatar(editData) {
-  return fetch(`${urlConfig.url}/users/me/avatar`, {
-    method: "PATCH",
-    headers: urlConfig.headers,
-    body: JSON.stringify(editData),
-  })
-    .then(onResponse)
+  //Запрос для изменение аватара
+  editAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    })
+      .then(this._onResponse)
+  };
+
+  //удаление карточки
+  deleteCards(data) {
+    return fetch(`${this._baseUrl}/cards/${data}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(this._onResponse)
+  };
+
+  //лайк
+  addLikes(data) {
+    return fetch(`${this._baseUrl}/cards/likes/${data._id}`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+      .then(this._onResponse)
+  };
+
+  //удаление лайка
+  removeLikes(data) {
+    return fetch(`${this._baseUrl}/cards/likes/${data._id}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(this._onResponse)
+  };
+
+  //Загрузка информации о пользователе с сервера и карточек
+  dataAll() {
+    return Promise.all([this.getUser(), this.getCards()])
+  };
 };
-//удаление карточки
-export function deleteCards(cardId) {
-  return fetch(`${urlConfig.url}/cards/${cardId}`, {
-    method: "DELETE",
-    headers: urlConfig.headers,
-  })
-    .then(onResponse)
-};
-//лайк
-export function addLikes(cardId) {
-  return fetch(`${urlConfig.url}/cards/likes/${cardId}`, {
-    method: "PUT",
-    headers: urlConfig.headers,
-  })
-    .then(onResponse)
-};
-//удаление лайка
-export function removeLikes(cardId) {
-  return fetch(`${urlConfig.url}/cards/likes/${cardId}`, {
-    method: "DELETE",
-    headers: urlConfig.headers,
-  })
-    .then(onResponse)
-};
+//////////

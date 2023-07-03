@@ -6,7 +6,7 @@ export class PopupWithImage extends Popup {
     this._popupImage = this._popup.querySelector('.popup__content');
     this._popupText = this._popup.querySelector('.popup__text');
   }
-
+// Открытие картинки
   open(data) {
     this._popupImage.src = data.link;
     this._popupImage.alt = `${data.name}`;

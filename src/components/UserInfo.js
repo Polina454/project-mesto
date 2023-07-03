@@ -7,7 +7,7 @@ export default class UserInfo {
     this._caption = document.querySelector(this._profileSubtitle);
     this._avatar = document.querySelector(this._profileAvatar)
   }
-
+// Получение данных о пользователе
   getUser() {
     const data = {
       name: this._name.textContent,
@@ -15,11 +15,11 @@ export default class UserInfo {
     };
     return data
   }
-
+// Изменение аватара
   editAvatar(data) {
     this._avatar.src = data.avatar;
   }
-
+// Изменение профиля
   editProfile(data) {
     this.id = data._id;
     this._name.textContent = data.name;

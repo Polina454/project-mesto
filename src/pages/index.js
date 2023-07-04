@@ -4,7 +4,7 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { Api } from '../components/Api.js';
 import { FormValidation, config } from "../components/FormValidation.js";
-import Card from "../components/Card.js";
+import Card from "../components/card";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 

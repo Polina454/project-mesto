@@ -44,7 +44,7 @@ export function createCard(cardInfo, userId,  user, likes, cardId) {
   return cardElement;
 };
 
-//отображение карточки на странице
+//отображение карточки на странице//
 export function renderCard(cardInfo, userId, user, likes, cardId) {
   cardsContainer.prepend(createCard(cardInfo, userId, user, likes, cardId));
 }

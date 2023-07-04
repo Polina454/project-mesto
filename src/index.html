@@ -34,11 +34,11 @@
         <form class="popup__form" name="form1" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
           <fieldset class="popup__fieldset">
-            <input id="title-input" class="popup__input popup__input_title" name="description-input" type="text"
+            <input id="title-input" class="popup__input popup__input_title" name="name" type="text"
               value="" placeholder="Имя пользователя" required minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" />
             <span class="form__input-error title-input-error"></span>
-            <input id="subtitle-input" class="popup__input popup__input_subtitle" type="text" name="description-input"
+            <input id="subtitle-input" class="popup__input popup__input_subtitle" type="text" name="about"
               value="" placeholder="О себе" required minlength="2" maxlength="200" />
             <span class="form__input-error subtitle-input-error"></span>
           </fieldset>
@@ -53,11 +53,11 @@
         <form class="popup__form popup__form_add" name="form" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <fieldset class="popup__fieldset">
-            <input id="place-input" class="popup__input popup__input_place" name="description-place" type="text"
+            <input id="place-input" class="popup__input popup__input_place" name="name" type="text"
               value="" placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" />
             <span class="form__input-error place-input-error"></span>
-            <input id="link-input" class="popup__input popup__input_link" type="url" name="description-link" value=""
+            <input id="link-input" class="popup__input popup__input_link" type="url" name="link" value=""
               placeholder="Ссылка на картинку" required />
             <span class="form__input-error link-input-error"></span>
           </fieldset>
@@ -72,7 +72,7 @@
         <form class="popup__form popup__form_new" name="form" novalidate>
           <h2 class="popup__title">Обновить аватар</h2>
           <fieldset class="popup__fieldset">
-            <input id="new-input" class="popup__input popup__input_new" type="url" name="description-new" value=""
+            <input id="new-input" class="popup__input popup__input_new" type="url" name="avatar" value=""
               placeholder="Ссылка на картинку" required />
             <span class="form__input-error new-input-error"></span>
           </fieldset>

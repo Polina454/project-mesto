@@ -1,3 +1,4 @@
+import { addCardToPage } from "../pages";
 export default class Section {
   constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
@@ -5,10 +6,13 @@ export default class Section {
   }
 
   renderItems(cards) {
-    cards.reverse().forEach((card) => { this._renderer(card) });
+    cards.reverse().forEach((card) => {
+      addCardToPage(card);
+    });
   }
 
   addItem(element) {
     this._container.prepend(element);
   }
 };
+

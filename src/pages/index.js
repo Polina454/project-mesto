@@ -7,16 +7,10 @@ import { FormValidation, config } from "../components/FormValidation.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
-
-//переменные
-const popupFormAdd = document.querySelector('.popup__form_add');
-const changePhotoForm = document.querySelector('.popup__form_new');
-const popupDescription = document.querySelector('.popup__form');
-const profileSubtitleInput = document.querySelector('.popup__input_subtitle');
-const profileTitleInput = document.querySelector('.popup__input_title');
-const editButton = document.querySelector('.profile__edit-button');
-const profileAvatarButton = document.querySelector('.profile__icon');
-const addButton = document.querySelector('.profile__add-button')
+import {
+  popupFormAdd, changePhotoForm, popupDescription, profileSubtitleInput, profileTitleInput,
+  editButton, profileAvatarButton, addButton
+} from "../utils/constants";
 //валидация
 const popupFormAddFormValidation = new FormValidation(popupFormAdd, config);
 popupFormAddFormValidation.enableValidation();
@@ -66,7 +60,9 @@ function handleDeleteClick(card) {
 };
 
 const cardTemplate = '#elements-template';
-function addCardToPage(dataCard) {
+
+// Создание экземпляра класса Card
+function createCardInstance(dataCard) {
   const card = new Card(
     dataCard,
     userInfo.id,
@@ -76,35 +72,45 @@ function addCardToPage(dataCard) {
         imagePopup.open(cardInfo);
       },
       handleDeleteClick: () => handleDeleteClick(card),
-      handleLikeClick: () => {
-        if (card.haveLikeOwner()) {
-          api
-            .removeLikes(card)
-            .then((data) => {
-              card.setCountLikeToPage(data.likes);
-              card.setStateLike();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          api
-            .addLikes(card)
-            .then((data) => {
-              card.setCountLikeToPage(data.likes);
-              card.setStateLike();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      },
+      handleLikeClick: () => handleLikeClick(card),
     },
     cardTemplate
   );
+
+  return card;
+}
+
+// Обработка клика на кнопку лайка
+function handleLikeClick(card) {
+  if (card.haveLikeOwner()) {
+    api
+      .removeLikes(card)
+      .then((data) => {
+        card.setCountLikeToPage(data.likes);
+        card.setStateLike();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    api
+      .addLikes(card)
+      .then((data) => {
+        card.setCountLikeToPage(data.likes);
+        card.setStateLike();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+// Добавление карточки на страницу
+export function addCardToPage(dataCard) {
+  const card = createCardInstance(dataCard);
   const cardNode = card.createCard();
   cardsList.addItem(cardNode);
-};
+}
 
 const profileTitle = '.profile__title';
 const profileSubtitle = '.profile__subtitle';

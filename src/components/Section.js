@@ -1,3 +1,4 @@
+
 import { addCardToPage } from "../pages";
 export default class Section {
   constructor({ renderer }, containerSelector) {
@@ -10,7 +11,7 @@ export default class Section {
       addCardToPage(card);
     });
   }
-  
+
   addItem(element) {
     this._container.prepend(element);
   }

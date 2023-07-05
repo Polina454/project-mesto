@@ -12,6 +12,7 @@ import {
   popupFormAdd, changePhotoForm, popupDescription, profileSubtitleInput, profileTitleInput,
   editButton, profileAvatarButton, addButton
 } from "../utils/constants";
+
 //валидация
 const popupFormAddFormValidation = new FormValidation(popupFormAdd, config);
 popupFormAddFormValidation.enableValidation();

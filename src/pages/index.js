@@ -104,7 +104,6 @@ function handleLikeClick(card) {
       });
   }
 }
-
 // Добавление карточки на страницу
 export function addCardToPage(dataCard) {
   const card = createCardInstance(dataCard);

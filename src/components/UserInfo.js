@@ -1,3 +1,4 @@
+
 export default class UserInfo {
   constructor(profileTitle, profileSubtitle, profileAvatar) {
     this._profileTitle = profileTitle;

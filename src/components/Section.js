@@ -10,8 +10,7 @@ export default class Section {
       addCardToPage(card);
     });
   }
-
-
+  
   addItem(element) {
     this._container.prepend(element);
   }

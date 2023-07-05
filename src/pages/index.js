@@ -61,7 +61,6 @@ function handleDeleteClick(card) {
 
 const cardTemplate = '#elements-template';
 
-
 // Создание экземпляра класса Card
 function createCardInstance(dataCard) {
   const card = new Card(

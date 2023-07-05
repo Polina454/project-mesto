@@ -92,7 +92,7 @@ export class Api {
       .then(this._onResponse)
   };
 
-  //Загрузка информации о пользователе с сервера и карточек
+  //Загрузка информации о пользователе с сервера и карточек//
   dataAll() {
     return Promise.all([this.getUser(), this.getCards()])
   };

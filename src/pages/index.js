@@ -1,10 +1,11 @@
+
 import "../pages/index.css";
 
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
-import { Api } from '../components/Api.js';
+import { api } from "../utils/constants";
 import { FormValidation, config } from "../components/FormValidation.js";
-import Card from "../components/Card.js";
+import Card from "../components/card";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import {
@@ -18,14 +19,6 @@ const changePhotoFormValidation = new FormValidation(changePhotoForm, config);
 changePhotoFormValidation.enableValidation();
 const popupDescriptionFormValidation = new FormValidation(popupDescription, config);
 popupDescriptionFormValidation.enableValidation();
-export const api = new Api({
-  baseUrl: "https://nomoreparties.co/v1/plus-cohort-25",
-  headers: {
-    authorization: "b12664a1-013d-4344-813d-a0e4066b7aa4",
-    "Content-Type": "application/json",
-  },
-});
-
 
 const cardsContainer = '.elements';
 api
@@ -192,3 +185,6 @@ profileAvatarButton.addEventListener('click', () => {
   changePhotoFormValidation.disableSubmitButton();
   popupWithFormNew.open();
 });
+
+
+

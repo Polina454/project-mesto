@@ -71,7 +71,7 @@ export default class Card {
       this._handleCardClick();
     });
   }
-//
+
   createCard() {
     this._getTemplate();
 

@@ -1,3 +1,4 @@
+
 export const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',

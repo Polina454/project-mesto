@@ -1,3 +1,4 @@
+
 export class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -97,4 +98,4 @@ export class Api {
     return Promise.all([this.getUser(), this.getCards()])
   };
 };
-//
+

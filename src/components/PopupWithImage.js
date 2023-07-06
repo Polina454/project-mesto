@@ -1,3 +1,4 @@
+
 import { Popup } from '../components/Popup.js';
 
 export class PopupWithImage extends Popup {

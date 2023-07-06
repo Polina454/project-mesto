@@ -182,20 +182,21 @@ const popupWithFormNew = new PopupWithForm(popupNew, {
 });
 
 //слушатели
+
 editButton.addEventListener('click', () => {
   const userData = userInfo.getUser();
   profileTitleInput.value = userData.name;
   profileSubtitleInput.value = userData.about;
   popupWithFormEdit.open();
 });
+
 addButton.addEventListener('click', () => {
   popupFormAddFormValidation.disableSubmitButton();
   popupWithFormAdd.open()
 });
+
 profileAvatarButton.addEventListener('click', () => {
   changePhotoFormValidation.disableSubmitButton();
   popupWithFormNew.open();
 });
-
-
 

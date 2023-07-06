@@ -1,0 +1,36 @@
+.profile__avatar_new {
+  object-fit: cover;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 30px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.profile__avatar_new:before {
+  background: url(../../../../images/plus.svg) center center/auto no-repeat, rgb(0, 0, 0);
+  content: '';
+  height: 100%;
+  width: 100%;
+  background-size: 25%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity .6s;
+  opacity: 0;
+}
+
+.profile__avatar_new:hover::before {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__avatar_new {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}

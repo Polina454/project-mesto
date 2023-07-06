@@ -14,12 +14,15 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar profile__avatar_new" src="<%=require('./images/image.png')%>" alt="аватар" />
-        <div class="profile__icon"></div>
+        <div class="profile__container">
+        <button class="profile__avatar_new">
+        <img class="profile__avatar" src="<%=require('./images/image.png')%>" alt="аватар" />
+      </button>
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <p class="profile__subtitle">Исследователь котов</p>
           <button class="profile__edit-button" type="button"></button>
+        </div>
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>

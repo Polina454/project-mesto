@@ -1,11 +1,11 @@
 .profile__info {
   max-width: 336px;
   display: grid;
-  grid-template-columns: minmax(auto, 350px) auto;
+  /* grid-template-columns: minmax(auto, 350px) auto; */
   grid-template-areas:
     "name button"
     "info .";
-  gap: 16px 18px;
+  /* gap: 16px 18px; */
   box-sizing: border-box;
 }
 
